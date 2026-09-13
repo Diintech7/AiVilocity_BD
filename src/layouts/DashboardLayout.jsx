@@ -15,12 +15,14 @@ import {
 } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 import { getFileUrl } from '../services/api';
+import WithdrawModal from '../components/WithdrawModal';
 
 export const DashboardLayout = () => {
   const { user, logout, refreshUser } = useAuth();
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [sidebarPhotoError, setSidebarPhotoError] = useState(false);
   const [headerPhotoError, setHeaderPhotoError] = useState(false);
+  const [withdrawModalOpen, setWithdrawModalOpen] = useState(false);
   const location = useLocation();
   const navigate = useNavigate();
 
@@ -175,18 +177,26 @@ export const DashboardLayout = () => {
 
           {/* Right Header Actions */}
           <div className="flex items-center gap-3 sm:gap-4">
-            {/* Wallet Box */}
-            <div className="flex items-center gap-2 bg-emerald-50/70 border border-emerald-200 px-3 py-1.5 rounded-lg">
-              <div className="w-5 h-5 rounded-md bg-emerald-500 text-white flex items-center justify-center">
+            {/* Wallet Box with Withdraw Trigger */}
+            <button
+              type="button"
+              onClick={() => setWithdrawModalOpen(true)}
+              className="flex items-center gap-2 bg-emerald-50/90 hover:bg-emerald-100/90 border border-emerald-300/80 px-3 py-1.5 rounded-lg transition-all cursor-pointer shadow-2xs group"
+              title="Click to view wallet breakdown & withdraw funds"
+            >
+              <div className="w-5 h-5 rounded-md bg-emerald-600 text-white flex items-center justify-center group-hover:scale-105 transition-transform">
                 <Wallet size={12} />
               </div>
               <div className="flex items-baseline gap-1.5">
-                <span className="text-[10px] uppercase font-semibold text-emerald-700">Wallet:</span>
-                <span className="text-xs font-bold text-emerald-950">
+                <span className="text-[10px] uppercase font-bold text-emerald-800">Wallet:</span>
+                <span className="text-xs font-black text-emerald-950">
                   ₹{user?.walletBalance !== undefined ? user.walletBalance.toLocaleString() : 0}
                 </span>
               </div>
-            </div>
+              <span className="text-[10px] font-bold text-emerald-700 bg-white/80 px-1.5 py-0.5 rounded border border-emerald-200 ml-1 hidden sm:inline-block">
+                Withdraw
+              </span>
+            </button>
 
             {/* Notification Bell */}
             <NavLink
@@ -221,6 +231,15 @@ export const DashboardLayout = () => {
           <Outlet />
         </main>
       </div>
+
+      {/* Withdrawal & Payouts Modal */}
+      <WithdrawModal
+        isOpen={withdrawModalOpen}
+        onClose={() => setWithdrawModalOpen(false)}
+        onBalanceUpdated={() => {
+          if (refreshUser) refreshUser();
+        }}
+      />
     </div>
   );
 };

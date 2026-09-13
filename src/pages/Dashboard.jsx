@@ -11,11 +11,13 @@ import {
   CheckCircle2,
   AlertCircle,
   MapPin,
-  ChevronRight
+  ChevronRight,
+  ArrowDownToLine
 } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 import campaignService from '../services/campaignService';
 import taskService from '../services/taskService';
+import WithdrawModal from '../components/WithdrawModal';
 
 export const Dashboard = () => {
   const { user, refreshUser } = useAuth();
@@ -23,6 +25,7 @@ export const Dashboard = () => {
   const [myCampaigns, setMyCampaigns] = useState([]);
   const [myTasks, setMyTasks] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [withdrawModalOpen, setWithdrawModalOpen] = useState(false);
 
   useEffect(() => {
     const fetchDashboardData = async () => {
@@ -171,6 +174,16 @@ export const Dashboard = () => {
                   </span>
                 </div>
                 <p className="text-xs text-slate-400 mt-1 font-medium">{s.desc}</p>
+                {s.title === 'Current Wallet' && (
+                  <button
+                    type="button"
+                    onClick={() => setWithdrawModalOpen(true)}
+                    className="mt-3 w-full py-1.5 px-3 bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold rounded-lg shadow-xs transition flex items-center justify-center gap-1.5 cursor-pointer"
+                  >
+                    <ArrowDownToLine size={13} />
+                    <span>Withdraw Funds</span>
+                  </button>
+                )}
               </div>
             </div>
           );
@@ -318,6 +331,15 @@ export const Dashboard = () => {
           </div>
         </div>
       </div>
+
+      {/* Withdraw Modal */}
+      <WithdrawModal
+        isOpen={withdrawModalOpen}
+        onClose={() => setWithdrawModalOpen(false)}
+        onBalanceUpdated={() => {
+          if (refreshUser) refreshUser();
+        }}
+      />
     </div>
   );
 };
