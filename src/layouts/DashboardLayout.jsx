@@ -11,7 +11,8 @@ import {
   Menu,
   X,
   Wallet,
-  ChevronRight
+  ChevronRight,
+  ArrowDownToLine
 } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 import { getFileUrl } from '../services/api';
@@ -38,6 +39,7 @@ export const DashboardLayout = () => {
     { label: 'Campaigns', path: '/campaigns', icon: Megaphone },
     { label: 'Tasks & Proofs', path: '/tasks', icon: CheckSquare },
     { label: 'Trainings & Certs', path: '/trainings', icon: GraduationCap },
+    { label: 'Withdrawals', path: '/withdrawals', icon: ArrowDownToLine },
     { label: 'My Profile', path: '/profile', icon: User },
     { label: 'Notifications', path: '/notifications', icon: Bell },
   ];
@@ -178,9 +180,8 @@ export const DashboardLayout = () => {
           {/* Right Header Actions */}
           <div className="flex items-center gap-3 sm:gap-4">
             {/* Wallet Box with Withdraw Trigger */}
-            <button
-              type="button"
-              onClick={() => setWithdrawModalOpen(true)}
+            <NavLink
+              to="/withdrawals"
               className="flex items-center gap-2 bg-emerald-50/90 hover:bg-emerald-100/90 border border-emerald-300/80 px-3 py-1.5 rounded-lg transition-all cursor-pointer shadow-2xs group"
               title="Click to view wallet breakdown & withdraw funds"
             >
@@ -196,7 +197,7 @@ export const DashboardLayout = () => {
               <span className="text-[10px] font-bold text-emerald-700 bg-white/80 px-1.5 py-0.5 rounded border border-emerald-200 ml-1 hidden sm:inline-block">
                 Withdraw
               </span>
-            </button>
+            </NavLink>
 
             {/* Notification Bell */}
             <NavLink

@@ -15,6 +15,7 @@ import Tasks from './pages/Tasks';
 import Trainings from './pages/Trainings';
 import Profile from './pages/Profile';
 import Notifications from './pages/Notifications';
+import Withdrawals from './pages/Withdrawals';
 
 function App() {
   return (
@@ -38,6 +39,8 @@ function App() {
             <Route path="campaigns" element={<Campaigns />} />
             <Route path="tasks" element={<Tasks />} />
             <Route path="trainings" element={<Trainings />} />
+            <Route path="withdrawals" element={<Withdrawals />} />
+            <Route path="wallet" element={<Navigate to="/withdrawals" replace />} />
             <Route path="profile" element={<Profile />} />
             <Route path="notifications" element={<Notifications />} />
           </Route>
