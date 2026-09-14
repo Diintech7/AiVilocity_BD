@@ -187,7 +187,7 @@ export const Withdrawals = () => {
   });
 
   return (
-    <div className="space-y-6 pb-12 animate-fadeIn max-w-7xl mx-auto">
+    <div className="space-y-6 pb-12 animate-fadeIn w-full">
       {/* Top Banner & Header */}
       <div className="bg-gradient-to-r from-slate-900 via-slate-800 to-slate-900 rounded-2xl p-6 lg:p-8 text-white shadow-lg relative overflow-hidden border border-slate-700/60">
         <div className="absolute right-0 top-0 w-96 h-96 bg-orange-500/10 rounded-full blur-3xl pointer-events-none -mr-20 -mt-20"></div>
