@@ -41,6 +41,7 @@ function App() {
             <Route path="trainings" element={<Trainings />} />
             <Route path="withdrawals" element={<Withdrawals />} />
             <Route path="wallet" element={<Navigate to="/withdrawals" replace />} />
+            <Route path="payments" element={<Navigate to="/withdrawals" replace />} />
             <Route path="profile" element={<Profile />} />
             <Route path="notifications" element={<Notifications />} />
           </Route>
